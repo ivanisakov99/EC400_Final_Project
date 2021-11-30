@@ -13,9 +13,16 @@ Test:
     python3 -m grader homework
 
 
+
+* Output height = (Input height + padding height top + padding height bottom - kernel height) / (stride height) + 1
+
+* Output width = (Input width + padding width right + padding width left - kernel width) / (stride width) + 1
+
+
 Initial NN:
 
 ```
+# Lowest Loss = 0.014
 input = 3        
 output = 32
 kernel_size = 5
