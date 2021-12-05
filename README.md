@@ -6,6 +6,10 @@ Data:
 
 Train:
 
+    python3 -m homework.train
+
+Visualise:
+
     python3 -m homework.planner [TRACK_NAME] -v
 
 Test:

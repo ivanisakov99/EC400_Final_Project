@@ -104,7 +104,7 @@ class Planner(torch.nn.Module):
         """
 
         # Stage 1
-        x11 = F.relu(self.bn11(self.conv11(x)))
+        x11 = F.relu(self.bn11(self.conv11(img)))
         x12 = F.relu(self.bn12(self.conv12(x11)))
         x1p, id1 = F.max_pool2d(
             x12, kernel_size=2, stride=2, return_indices=True)
