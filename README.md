@@ -26,6 +26,8 @@ Test:
 Initial NN:
 
 ```
+# layers = []
+
 # Lowest Loss = 0.014
 input = 3        
 output = 32
