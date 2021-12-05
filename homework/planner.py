@@ -19,7 +19,7 @@ class Planner(torch.nn.Module):
 
         super().__init__()
 
-        layers = []
+        # layers = []
         
         # Lowest Loss = 0.014
         # input = 3        
@@ -103,49 +103,71 @@ class Planner(torch.nn.Module):
         return (B,2)
         """
 
+        layers = []
         # Stage 1
         x11 = F.relu(self.bn11(self.conv11(img)))
+        # layers.append(x11)
         x12 = F.relu(self.bn12(self.conv12(x11)))
+        # layers.append(x12)
         x1p, id1 = F.max_pool2d(
             x12, kernel_size=2, stride=2, return_indices=True)
         size1 = x12.size()
+        # layers.append(x1p)
 
         # Stage 2
         x21 = F.relu(self.bn21(self.conv21(x1p)))
+        # layers.append(x21)
         x22 = F.relu(self.bn22(self.conv22(x21)))
+        # layers.append(x22)
         x2p, id2 = F.max_pool2d(
             x22, kernel_size=2, stride=2, return_indices=True)
         size2 = x22.size()
+        # layers.append(x2p)
 
         # Stage 3
         x31 = F.relu(self.bn31(self.conv31(x2p)))
+        # layers.append(x31)
         x32 = F.relu(self.bn32(self.conv32(x31)))
+        # layers.append(x32)
         x33 = F.relu(self.bn33(self.conv33(x32)))
+        # layers.append(x33)
         x3p, id3 = F.max_pool2d(
             x33, kernel_size=2, stride=2, return_indices=True)
         size3 = x33.size()
+        # layers.append(x3p)
 
         # Stage 3d
         x3d = F.max_unpool2d(x3p, id3, kernel_size=2,
                              stride=2, output_size=size3)
+        # layers.append(x3d)
         x33d = F.relu(self.bn33d(self.conv33d(x3d)))
+        # layers.append(x33d)
         x32d = F.relu(self.bn32d(self.conv32d(x33d)))
+        # layers.append(x32d)
         x31d = F.relu(self.bn31d(self.conv31d(x32d)))
+        # layers.append(x31d)
 
         # Stage 2d
         x2d = F.max_unpool2d(x31d, id2, kernel_size=2,
                              stride=2, output_size=size2)
+        # layers.append(x2d)
         x22d = F.relu(self.bn22d(self.conv22d(x2d)))
+        # layers.append(x22d)
         x21d = F.relu(self.bn21d(self.conv21d(x22d)))
+        # layers.append(x21d)
 
         # Stage 1d
         x1d = F.max_unpool2d(x21d, id1, kernel_size=2,
                              stride=2, output_size=size1)
+        # layers.append(x1d)
         x12d = F.relu(self.bn12d(self.conv12d(x1d)))
+        # layers.append(x12d)
         x11d = self.conv11d(x12d)
+        # layers.append(x11d)
         
         x = x11d
 
+        # x = torch.nn.Sequential(*layers)
 
         # Previous
         # x = self._conv(img)
