@@ -1,6 +1,6 @@
 # EC400_Final_Project
 
-Data:
+Generate Data:
 
     python3 -m homework.utils zengarden lighthouse hacienda snowtuxpeak cornfield_crossing scotland
 
